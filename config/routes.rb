@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :host_metrics, only: [:index]
     end
 
+    match '*path', to: 'pages#index', via: %i[get head]
     root to: 'pages#index', as: :project_root
   end
 
