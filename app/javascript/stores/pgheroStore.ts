@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, transaction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { encodeParams, API_PREFIX } from "../api";
 
 interface SummaryData {

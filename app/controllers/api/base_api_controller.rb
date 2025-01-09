@@ -2,5 +2,6 @@
 
 module Api
   class BaseApiController < ActionController::API
+    include ApiHelpers
   end
 end
