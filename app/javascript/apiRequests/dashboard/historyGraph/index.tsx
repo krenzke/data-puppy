@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { computed } from "mobx";
+import { computed, makeObservable, observable } from "mobx";
 import { HistoryOption } from "../store";
 import {
   ApiHistoryByStatusDataPoint,
@@ -100,10 +100,17 @@ interface StatusHistoryProps {
 }
 
 class StatusHistory extends React.Component<StatusHistoryProps> {
+  dataPoints: ApiHistoryByStatusDataPoint[];
+
+  constructor(props: StatusHistoryProps) {
+    super(props);
+    this.dataPoints = this.props.data;
+  }
+
   lineData = () =>
     computed(() => {
       //@ts-ignore
-      return formatLineData(this.props.data, {
+      return formatLineData(this.dataPoints, {
         "1xx": { name: "1xx", color: "#64748B" },
         "2xx": { name: "2xx", color: "#22C55E" },
         "3xx": { name: "3xx", color: "#06B6D4" },

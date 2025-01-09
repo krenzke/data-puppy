@@ -79,7 +79,14 @@ function transformQueryKey(k: string) {
   return KeyMap[k] || k;
 }
 
-export const API_PREFIX = import.meta.env.PROD ? "/data-puppy" : "";
+export const API_PREFIX = import.meta.env.PROD ? "/data-puppy/api" : "/api";
+
+export function ApiPath(s: string): string {
+  const projectSlug = window.project.slug;
+  return import.meta.env.PROD
+    ? `/data-puppy/${projectSlug}/api${s}`
+    : `/${projectSlug}/api${s}`;
+}
 
 export const JSON_HEADERS = {
   Accept: "application/json",

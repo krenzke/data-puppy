@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import SidekiqRoutes from "admin/sidekiq/routes";
 import ApiMetricsRoutes from "../apiRequests/routes";
 // import HostMetricsRoutes from "admin/hostMetrics/routes";
-// import { API_PREFIX } from "api";
 import Sidebar from "../components/sidebar";
 import RootStore, { StoreProvider } from "../stores/rootStore";
 

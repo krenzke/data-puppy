@@ -18,10 +18,16 @@ interface Props {
 }
 
 class LatencyGraph extends React.Component<Props> {
+  dataPoints: LatencyDataPoint[];
+
+  constructor(props: Props) {
+    super(props);
+    this.dataPoints = props.data;
+  }
   lineData = () =>
     computed(() => {
       //@ts-ignore
-      return formatLineData(this.props.data, {
+      return formatLineData(this.dataPoints, {
         p50: { name: "p50", color: "#64748B" },
         p95: { name: "p95", color: "#22C55E" },
         p99: { name: "p99", color: "#EF4444" },

@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { encodeParams, API_PREFIX } from "../api";
+import { encodeParams, ApiPath } from "../api";
 
 interface SummaryData {
   numConnections: number;
@@ -78,7 +78,7 @@ export default class PgHeroStore {
       this.summaryData = window.pgHeroSummaryData;
       delete window.pgHeroSummaryData;
     } else {
-      fetch(`${API_PREFIX}/admin/pghero`, {
+      fetch(`${ApiPath("/pghero")}`, {
         headers: {
           Accepts: "application/json",
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export default class PgHeroStore {
     const queryString = encodeParams({
       live: true,
     });
-    fetch(`${API_PREFIX}/admin/pghero/queries?${queryString}`)
+    fetch(`${ApiPath("/pghero/queries")}?${queryString}`)
       .then((response) => response.json())
       .then((data: QueriesResponse) => {
         runInAction(() => {
@@ -112,7 +112,7 @@ export default class PgHeroStore {
       historical: true,
       sort: this.queriesSortBy,
     });
-    fetch(`${API_PREFIX}/admin/pghero/queries?${queryString}`)
+    fetch(`${ApiPath("/pghero/queries")}?${queryString}`)
       .then((response) => response.json())
       .then((data: QueriesResponse) => {
         runInAction(() => {
@@ -122,7 +122,7 @@ export default class PgHeroStore {
   }
 
   fetchExplain(analyze = false) {
-    fetch(`${API_PREFIX}/admin/pghero/explain`, {
+    fetch(`${ApiPath("/pghero/explain")}`, {
       method: "POST",
       headers: {
         Accepts: "application/json",

@@ -1,10 +1,5 @@
 import { makeAutoObservable, runInAction, transaction } from "mobx";
-import {
-  encodeParams,
-  API_PREFIX,
-  PaginationData,
-  JSON_HEADERS,
-} from "../../api";
+import { encodeParams, ApiPath, PaginationData, JSON_HEADERS } from "../../api";
 import TimespanStore from "stores/timespanStore";
 import { ApiRequestsResponse, ApiRequestRecord, HTTPVerb } from "stores/types";
 
@@ -50,7 +45,7 @@ export default class ApiErrorsStore {
       per_page: 10,
       with_error: true,
     };
-    fetch(`${API_PREFIX}/admin/api_requests?${encodeParams(params)}`, {
+    fetch(`${ApiPath("/api_requests")}?${encodeParams(params)}`, {
       headers: JSON_HEADERS,
     })
       .then((response) => response.json())

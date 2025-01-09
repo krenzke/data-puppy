@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction, transaction } from "mobx";
-import { API_PREFIX, JSON_HEADERS } from "../../api";
+import { ApiPath, JSON_HEADERS } from "../../api";
 import {
   ApiRequestRecord,
   BackgroundJobErrorRecord,
@@ -24,7 +24,7 @@ export default class RequestDetailsStore {
 
   fetchRequestDetails(requestId: string) {
     this.fetching = true;
-    fetch(`${API_PREFIX}/admin/api_requests/${requestId}`, {
+    fetch(`${ApiPath("/api_requests")}/${requestId}`, {
       headers: JSON_HEADERS,
     })
       .then((response) => response.json())

@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction, transaction } from "mobx";
-import { encodeParams, API_PREFIX, PaginationData } from "../api";
+import { encodeParams, ApiPath, PaginationData } from "../api";
 import TimespanStore from "./timespanStore";
 
 export interface DeploymentAttributes {
@@ -39,7 +39,7 @@ export default class DeploymentsStore {
       per_page: 10,
     };
 
-    fetch(`${API_PREFIX}/admin/deployments?${encodeParams(params)}`)
+    fetch(`${ApiPath("/deployments")}?${encodeParams(params)}`)
       .then((response) => response.json())
       .then((response: DeploymentsResponse) => {
         runInAction(() => {

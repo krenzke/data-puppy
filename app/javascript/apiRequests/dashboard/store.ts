@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction, transaction, autorun } from "mobx";
-import { encodeParams, API_PREFIX, PaginationData } from "../../api";
+import { encodeParams, PaginationData, ApiPath } from "../../api";
 import TimespanStore from "stores/timespanStore";
 import {
   ApiRequestRecord,
@@ -89,7 +89,7 @@ export default class ApiMetricsStore {
 
   fetchApiRequests() {
     const params = this.queryParams;
-    fetch(`${API_PREFIX}/admin/api_requests?${encodeParams(params)}`)
+    fetch(`${ApiPath("/api_requests")}?${encodeParams(params)}`)
       .then((response) => response.json())
       .then((response: ApiRequestsResponse) => {
         runInAction(() => {
@@ -124,11 +124,11 @@ export default class ApiMetricsStore {
       bucket_size: this.timespanStore.preferredBucketSize,
     };
     const requestHistory = fetch(
-      `${API_PREFIX}/admin/api_requests/history?${encodeParams(params)}`
+      `${ApiPath("/api_requests/history")}?${encodeParams(params)}`
     ).then((response) => response.json());
 
     const latencyHistory = fetch(
-      `${API_PREFIX}/admin/api_requests/latency_history?${encodeParams(params)}`
+      `${ApiPath("/api_requests/latency_history")}?${encodeParams(params)}`
     ).then((response) => response.json());
 
     Promise.all([requestHistory, latencyHistory])
