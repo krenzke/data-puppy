@@ -22,7 +22,7 @@ module ApiRequests
       # start_date: number | null;
       # end_date: number | null;
       # sort: string;
-      api_requests = ApiRequest.page(page).per(per_page)
+      api_requests = params[:project].api_requests.page(page).per(per_page)
       start_time, end_time = TimespanHelper.convert_timespan_to_times(params[:span_type], params[:start_date], params[:end_date])
       api_requests = api_requests.for_timespan(start_time, end_time)
 

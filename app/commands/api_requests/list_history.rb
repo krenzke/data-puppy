@@ -40,6 +40,7 @@ module ApiRequests
       q = request_table.project(select_str)
       q = q.where(request_table[:time].gteq(start_time))
             .where(request_table[:time].lteq(end_time))
+            .where(request_table[:project_id].eq(params[:project].id))
             .group(:bucket, :status)
       data = ActiveRecord::Base.connection.execute(q.to_sql)
 
@@ -72,6 +73,7 @@ module ApiRequests
       q = request_table.project(select_str)
       q = q.where(request_table[:time].gteq(start_time))
             .where(request_table[:time].lteq(end_time))
+            .where(request_table[:project_id].eq(params[:project].id))
             .group(:bucket)
 
       q_success = q.clone.where(request_table[:error_class].eq(nil))

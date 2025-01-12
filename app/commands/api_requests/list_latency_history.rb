@@ -22,6 +22,7 @@ module ApiRequests
       q = request_table.project(select_str)
                         .where(request_table[:time].gteq(start_time))
                         .where(request_table[:time].lteq(end_time))
+                        .where(request_table[:project_id].eq(params[:project].id))
                         .group(:bucket)
       raw_data = ActiveRecord::Base.connection.execute(q.to_sql)
 

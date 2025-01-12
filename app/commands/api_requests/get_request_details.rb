@@ -5,10 +5,11 @@ module ApiRequests
     protected
 
     def _execute
-      request_id = params[:request_id]
-      api_request = ApiRequest.where(request_id:).first
-      background_jobs = BackgroundJob.where(request_id:)
-      background_job_errors = BackgroundJobError.where(request_id:)
+      request_id = params[:id] || params[:request_id]
+      project = params[:project]
+      api_request = project.api_requests.where(request_id:).first
+      background_jobs = project.background_jobs.where(request_id:)
+      background_job_errors = project.background_job_errors.where(request_id:)
 
       {
         api_request:,

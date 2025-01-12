@@ -3,7 +3,7 @@
 module Api
   class HostMetricsController < BaseApiController
     def index
-      result = HostMetrics::ListHostMetrics.new(params:).execute
+      result = HostMetrics::ListHostMetrics.new(params: params_with_project).execute
       meta = extract_pagination_meta(result[:metrics])
              .merge(start_time: result[:start_time].to_f, end_time: result[:end_time].to_f)
       render json: HostMetricSerializer.new(result[:metrics],

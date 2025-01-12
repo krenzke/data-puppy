@@ -3,7 +3,7 @@
 module Api
   class DeploymentsController < BaseApiController
     def index
-      result = Deployments::ListDeployments.new(params:).execute
+      result = Deployments::ListDeployments.new(params: params_with_project).execute
       meta = extract_pagination_meta(result[:deployments])
               .merge(start_time: result[:start_time].to_f, end_time: result[:end_time].to_f)
       render json: DeploymentSerializer.new(result[:deployments],

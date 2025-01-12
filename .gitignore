@@ -21,7 +21,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-NOTES
+NOTES.md
 gastro_backup.sql
 .vscode/
 /app/assets/builds/*

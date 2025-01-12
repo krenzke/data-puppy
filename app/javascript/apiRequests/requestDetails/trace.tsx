@@ -1,5 +1,5 @@
 import React from "react";
-import { action, makeAutoObservable } from "mobx";
+import { action, makeAutoObservable, toJS } from "mobx";
 import { TraceSpan } from "stores/types";
 import { observer } from "mobx-react";
 import cx from "classnames";
@@ -17,6 +17,8 @@ class Trace extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
     this.store.spans = props.spans;
+    console.log({ spans: toJS(props.spans) });
+    console.log(this.store.rootSpans);
   }
 
   rootSpans = () => {

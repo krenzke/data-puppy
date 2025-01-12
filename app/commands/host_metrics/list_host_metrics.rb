@@ -15,7 +15,7 @@ module HostMetrics
                   # downsample accordingly
                   downsampled_query(start_time:, end_time:, min_spacing:)
                 else
-                  HostMetric.page(page)
+                  params[:project].host_metrics.page(page)
                                         .per(per_page).order(time: :asc)
                                         .for_timespan(start_time, end_time)
                 end
@@ -36,6 +36,7 @@ module HostMetrics
               .gteq(start_time))
               .where(t[:time]
               .lteq(end_time))
+              .where(t[:project_id].eq(params[:project].id))
       with_clause = Arel::Nodes::As.new(t, cte)
 
       # Build downsampling condition (pluck every n-th row)

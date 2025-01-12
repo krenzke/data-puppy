@@ -3,7 +3,7 @@
 module Api
   class ApiRequestsController < BaseApiController
     def index
-      result = ApiRequests::ListApiRequests.new(params:).execute
+      result = ApiRequests::ListApiRequests.new(params: params_with_project).execute
       meta = extract_pagination_meta(result[:api_requests])
              .merge(start_time: result[:start_time].to_f, end_time: result[:end_time].to_f)
       render json: ::ApiRequestSerializer.new(result[:api_requests],
@@ -12,13 +12,13 @@ module Api
     end
 
     def history
-      result = ApiRequests::ListHistory.new(params:).execute
+      result = ApiRequests::ListHistory.new(params: params_with_project).execute
       meta = { start_time: result[:start_time].to_f, end_time: result[:end_time].to_f }
       render json: { data: result[:data], meta: }
     end
 
     def latency_history
-      result = ApiRequests::ListLatencyHistory.new(params:).execute
+      result = ApiRequests::ListLatencyHistory.new(params: params_with_project).execute
       meta = { start_time: result[:start_time].to_f, end_time: result[:end_time].to_f }
       render json: { data: result[:data], meta: }
     end
@@ -27,7 +27,7 @@ module Api
       respond_to do |format|
         format.html {}
         format.json do
-          result = ApiRequests::GetRequestDetails.new(params:).execute
+          result = ApiRequests::GetRequestDetails.new(params: params_with_project).execute
           render json: {
             api_request: ApiRequestSerializer.new(result[:api_request]).serialize[:data],
             background_jobs: BackgroundJobSerializer.new(result[:background_jobs], is_collection: true).serialize[:data],

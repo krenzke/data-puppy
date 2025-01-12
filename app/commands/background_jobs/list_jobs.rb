@@ -5,7 +5,7 @@ module BackgroundJobs
     protected
 
     def _execute
-      background_jobs = BackgroundJob.page(page).per(per_page)
+      background_jobs = params[:project].background_jobs.page(page).per(per_page)
       start_time, end_time = TimespanHelper.convert_timespan_to_times(params[:span_type], params[:start_date], params[:end_date])
       background_jobs = background_jobs.for_timespan(start_time, end_time)
 

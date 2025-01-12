@@ -33,6 +33,7 @@ module BackgroundJobs
       q = table.project(select_str)
       q = q.where(table[:time].gteq(start_time))
             .where(table[:time].lteq(end_time))
+            .where(table[:project_id].eq(params[:project].id))
             .group(:bucket)
       data = ActiveRecord::Base.connection.execute(q.to_sql)
       data.index_by { |e| e['bucket'] }
