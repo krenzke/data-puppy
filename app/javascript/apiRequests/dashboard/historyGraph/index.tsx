@@ -9,7 +9,7 @@ import {
 import { action } from "mobx";
 import { DeploymentRecord } from "stores/deploymentsStore";
 import TimeGraph from "components/timeGraph";
-// import { ParentSizeModern } from "@visx/responsive";
+import { ParentSize } from "@visx/responsive";
 import Spinner from "components/spinner";
 import { formatLineData } from "components/graphHelpers";
 
@@ -100,17 +100,10 @@ interface StatusHistoryProps {
 }
 
 class StatusHistory extends React.Component<StatusHistoryProps> {
-  dataPoints: ApiHistoryByStatusDataPoint[];
-
-  constructor(props: StatusHistoryProps) {
-    super(props);
-    this.dataPoints = this.props.data;
-  }
-
   lineData = () =>
     computed(() => {
       //@ts-ignore
-      return formatLineData(this.dataPoints, {
+      return formatLineData(this.props.data, {
         "1xx": { name: "1xx", color: "#64748B" },
         "2xx": { name: "2xx", color: "#22C55E" },
         "3xx": { name: "3xx", color: "#06B6D4" },
@@ -123,27 +116,27 @@ class StatusHistory extends React.Component<StatusHistoryProps> {
     const { deployments, startTime, endTime, onZoom, onPan } = this.props;
 
     return (
-      // <ParentSizeModern debounceTime={100}>
-      //   {({ width }) => {
-      // return (
-      <TimeGraph
-        width={200}
-        height={200}
-        xDomain={[startTime, endTime]}
-        yDomain={[0, null]}
-        lineData={this.lineData().get()}
-        epochs={deployments.map((d) => ({
-          id: `${d.attributes.sha}-${d.attributes.time}`,
-          x: d.attributes.time,
-          name: d.attributes.sha.substring(0, 6),
-        }))}
-        yLabel="Count"
-        onZoom={onZoom}
-        onPan={onPan}
-      />
-      // );
-      //   }}
-      // </ParentSizeModern>
+      <ParentSize debounceTime={100}>
+        {({ width }) => {
+          return (
+            <TimeGraph
+              width={width || 200}
+              height={200}
+              xDomain={[startTime, endTime]}
+              yDomain={[0, null]}
+              lineData={this.lineData().get()}
+              epochs={deployments.map((d) => ({
+                id: `${d.attributes.sha}-${d.attributes.time}`,
+                x: d.attributes.time,
+                name: d.attributes.sha.substring(0, 6),
+              }))}
+              yLabel="Count"
+              onZoom={onZoom}
+              onPan={onPan}
+            />
+          );
+        }}
+      </ParentSize>
     );
   }
 }
@@ -173,27 +166,27 @@ class SuccessHistory extends React.Component<SuccessHistoryProps> {
     const { deployments, startTime, endTime, onZoom, onPan } = this.props;
 
     return (
-      // <ParentSizeModern debounceTime={100}>
-      //   {({ width, height }) => {
-      //     return (
-      <TimeGraph
-        width={200}
-        height={200}
-        xDomain={[startTime, endTime]}
-        yDomain={[0, null]}
-        lineData={this.lineData().get()}
-        epochs={deployments.map((d) => ({
-          id: `${d.attributes.sha}-${d.attributes.time}`,
-          x: d.attributes.time,
-          name: d.attributes.sha.substring(0, 6),
-        }))}
-        yLabel="Count"
-        onZoom={onZoom}
-        onPan={onPan}
-      />
-      // );
-      // }}
-      // </ParentSizeModern>
+      <ParentSize debounceTime={100}>
+        {({ width }) => {
+          return (
+            <TimeGraph
+              width={width || 200}
+              height={200}
+              xDomain={[startTime, endTime]}
+              yDomain={[0, null]}
+              lineData={this.lineData().get()}
+              epochs={deployments.map((d) => ({
+                id: `${d.attributes.sha}-${d.attributes.time}`,
+                x: d.attributes.time,
+                name: d.attributes.sha.substring(0, 6),
+              }))}
+              yLabel="Count"
+              onZoom={onZoom}
+              onPan={onPan}
+            />
+          );
+        }}
+      </ParentSize>
     );
   }
 }

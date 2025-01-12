@@ -4,7 +4,7 @@ import { computed } from "mobx";
 import Spinner from "components/spinner";
 import { DeploymentRecord } from "stores/deploymentsStore";
 import TimeGraph from "components/timeGraph";
-// import { ParentSizeModern } from "@visx/responsive";
+import { ParentSize } from "@visx/responsive";
 import { formatLineData } from "components/graphHelpers";
 import { LatencyDataPoint } from "stores/types";
 
@@ -18,16 +18,10 @@ interface Props {
 }
 
 class LatencyGraph extends React.Component<Props> {
-  dataPoints: LatencyDataPoint[];
-
-  constructor(props: Props) {
-    super(props);
-    this.dataPoints = props.data;
-  }
   lineData = () =>
     computed(() => {
       //@ts-ignore
-      return formatLineData(this.dataPoints, {
+      return formatLineData(this.props.data, {
         p50: { name: "p50", color: "#64748B" },
         p95: { name: "p95", color: "#22C55E" },
         p99: { name: "p99", color: "#EF4444" },
@@ -48,27 +42,27 @@ class LatencyGraph extends React.Component<Props> {
     return (
       <div>
         Latency
-        {/* <ParentSizeModern debounceTime={100}> */}
-        {/* {({ width }) => { */}
-        {/* return ( */}
-        <TimeGraph
-          width={200}
-          height={200}
-          xDomain={[startTime, endTime]}
-          yDomain={[0, null]}
-          lineData={this.lineData().get()}
-          epochs={deployments.map((d) => ({
-            id: `${d.attributes.sha}-${d.attributes.time}`,
-            x: d.attributes.time,
-            name: d.attributes.sha.substring(0, 6),
-          }))}
-          yLabel="Time (ms)"
-          onZoom={onZoom}
-          onPan={onPan}
-        />
-        {/* ); */}
-        {/* }} */}
-        {/* </ParentSizeModern> */}
+        <ParentSize debounceTime={100}>
+          {({ width }) => {
+            return (
+              <TimeGraph
+                width={width || 200}
+                height={200}
+                xDomain={[startTime, endTime]}
+                yDomain={[0, null]}
+                lineData={this.lineData().get()}
+                epochs={deployments.map((d) => ({
+                  id: `${d.attributes.sha}-${d.attributes.time}`,
+                  x: d.attributes.time,
+                  name: d.attributes.sha.substring(0, 6),
+                }))}
+                yLabel="Time (ms)"
+                onZoom={onZoom}
+                onPan={onPan}
+              />
+            );
+          }}
+        </ParentSize>
       </div>
     );
   }
