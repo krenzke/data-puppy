@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { observer } from "mobx-react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import PgHeroRoutes from "admin/pghero/routes";
+import PgHeroRoutes from "../pghero/routes";
 // import SidekiqRoutes from "admin/sidekiq/routes";
 import ApiMetricsRoutes from "../apiRequests/routes";
 import HostMetricsRoutes from "../hostMetrics/routes";
@@ -19,13 +19,15 @@ const App = observer(
           <StoreProvider value={store}>
             <div className="min-h-screen pl-40">
               <Sidebar />
-              <Routes>
-                {ApiMetricsRoutes}
-                {HostMetricsRoutes}
-                <Route path="/pghero" element={<div>PGHERO</div>} />
-                <Route path="/sidekiq" element={<div>SIDEKIQ</div>} />
-                <Route path="*" element={<Navigate to="/api-metrics" />} />
-              </Routes>
+              <div className="px-4">
+                <Routes>
+                  {ApiMetricsRoutes}
+                  {HostMetricsRoutes}
+                  {PgHeroRoutes}
+                  <Route path="/sidekiq" element={<div>SIDEKIQ</div>} />
+                  <Route path="*" element={<Navigate to="/api-metrics" />} />
+                </Routes>
+              </div>
             </div>
           </StoreProvider>
         </BrowserRouter>
