@@ -116,6 +116,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_08_011452) do
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
+    t.string "database_url"
+    t.string "redis_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_projects_on_slug", unique: true

@@ -46,6 +46,7 @@ class ApiMetrics extends React.Component<Props, State> {
     this.store.fetchApiRequests();
     this.store.fetchHistoryData();
     this.context.deploymentStore.fetchDeployments();
+    this.resetZoom();
   };
 
   handleSortChange = action((e: React.FormEvent<HTMLSelectElement>) => {

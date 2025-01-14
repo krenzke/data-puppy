@@ -7,6 +7,8 @@ class CreateTables < ActiveRecord::Migration[7.2]
     create_table :projects do |t|
       t.string :name, null: false
       t.string :slug, null: false, index: { unique: true }
+      t.string :database_url
+      t.string :redis_url
 
       t.timestamps
     end
