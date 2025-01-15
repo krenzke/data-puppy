@@ -5,20 +5,30 @@ import Home from "./home";
 import NavigationTabs from "components/navigationTabs";
 
 const Wrapper = () => {
-  return (
-    <>
-      <div className="mt-2">
-        <NavigationTabs
-          tabs={[
-            { to: "", label: "Summary" },
-            { to: "explain", label: "Explain" },
-            { to: "queries", label: "Queries" },
-          ]}
-        />
+  if (window.currentProject.has_pghero) {
+    return (
+      <>
+        <div className="mt-2">
+          <NavigationTabs
+            tabs={[
+              { to: "", label: "Summary" },
+              { to: "explain", label: "Explain" },
+              { to: "queries", label: "Queries" },
+            ]}
+          />
+        </div>
+        <Outlet />
+      </>
+    );
+  } else {
+    return (
+      <div className="flex justify-center mt-8">
+        <div className="p-6 text-center border rounded">
+          PgHero does not appear to be configured for this project
+        </div>
       </div>
-      <Outlet />
-    </>
-  );
+    );
+  }
 };
 
 const PgHeroRoutes = (

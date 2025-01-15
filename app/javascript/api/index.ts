@@ -82,7 +82,7 @@ function transformQueryKey(k: string) {
 export const API_PREFIX = import.meta.env.PROD ? "/data-puppy/api" : "/api";
 
 export function ApiPath(s: string): string {
-  const projectSlug = window.project.slug;
+  const projectSlug = window.currentProject.slug;
   return import.meta.env.PROD
     ? `/data-puppy/${projectSlug}/api${s}`
     : `/${projectSlug}/api${s}`;

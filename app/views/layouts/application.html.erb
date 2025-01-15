@@ -23,7 +23,8 @@
       Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
     -->
     <script type="text/javascript">
-      window.project = <%= raw @project.attributes.slice(*%w[id slug name]).to_json %>;
+      window.currentProject = <%= raw serialize_project(@project).to_json %>;
+      window.projects = <%= raw Project.order(:name).map{|proj| serialize_project(@project)}.to_json %>;
     </script>
 
   </head>

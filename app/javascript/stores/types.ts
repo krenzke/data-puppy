@@ -2,7 +2,8 @@ import { PaginationData, ResourceIdentifier } from "../api";
 
 declare global {
   interface Window {
-    project: Project;
+    currentProject: Project;
+    projects: Project[];
   }
 }
 
@@ -10,6 +11,8 @@ export type Project = {
   id: number;
   name: string;
   slug: string;
+  has_pghero: boolean;
+  has_sidekiq: boolean;
 };
 
 //////////////////////////////

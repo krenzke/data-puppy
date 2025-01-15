@@ -3,19 +3,19 @@ import { createRoot } from "react-dom/client";
 import { observer } from "mobx-react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PgHeroRoutes from "../pghero/routes";
-// import SidekiqRoutes from "admin/sidekiq/routes";
+import SidekiqRoutes from "../sidekiq/routes";
 import ApiMetricsRoutes from "../apiRequests/routes";
 import HostMetricsRoutes from "../hostMetrics/routes";
 import Sidebar from "../components/sidebar";
 import RootStore, { StoreProvider } from "../stores/rootStore";
 
-const store = new RootStore(window.project);
+const store = new RootStore(window.currentProject);
 
 const App = observer(
   class App extends React.Component {
     render() {
       return (
-        <BrowserRouter basename={window.project.slug}>
+        <BrowserRouter basename={window.currentProject.slug}>
           <StoreProvider value={store}>
             <div className="min-h-screen pl-40">
               <Sidebar />
@@ -24,7 +24,7 @@ const App = observer(
                   {ApiMetricsRoutes}
                   {HostMetricsRoutes}
                   {PgHeroRoutes}
-                  <Route path="/sidekiq" element={<div>SIDEKIQ</div>} />
+                  {SidekiqRoutes}
                   <Route path="*" element={<Navigate to="/api-metrics" />} />
                 </Routes>
               </div>
