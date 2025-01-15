@@ -8,17 +8,15 @@ import NavigationTabs from "components/navigationTabs";
 const Wrapper = () => {
   return (
     <>
-      <>
-        <div>
-          <NavigationTabs
-            tabs={[
-              { to: "", label: "Dashboard" },
-              { to: "errors", label: "Errors" },
-            ]}
-          />
-        </div>
-        <Outlet />
-      </>
+      <div className="mt-4">
+        <NavigationTabs
+          tabs={[
+            { to: "", label: "Dashboard" },
+            { to: "errors", label: "Errors" },
+          ]}
+        />
+      </div>
+      <Outlet />
     </>
   );
 };

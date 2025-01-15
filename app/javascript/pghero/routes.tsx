@@ -8,7 +8,7 @@ const Wrapper = () => {
   if (window.currentProject.has_pghero) {
     return (
       <>
-        <div className="mt-2">
+        <div className="mt-4">
           <NavigationTabs
             tabs={[
               { to: "", label: "Summary" },

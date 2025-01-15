@@ -29,7 +29,7 @@ class Wrapper extends React.Component<Props> {
     if (window.currentProject.has_sidekiq) {
       return (
         <>
-          <div>
+          <div className="mt-4">
             <NavigationTabs
               tabs={[
                 { to: "", label: "Dashboard" },

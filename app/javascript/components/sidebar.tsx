@@ -7,7 +7,7 @@ const PATH_PREFIXES = {
   "/api-metrics": "api-metrics",
   "/host-metrics": "host-metrics",
   "/sidekiq": "sidekiq",
-  "/pghero": "pghero"
+  "/pghero": "pghero",
 };
 
 interface SidebarItemProps {
@@ -21,7 +21,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, active, label }) => (
     <Link
       to={to}
       className={cx("p-6 block hover:bg-slate-500", {
-        "bg-slate-500": active
+        "bg-slate-500": active,
       })}
     >
       {label}
@@ -39,7 +39,7 @@ const Sidebar = () => {
   }
 
   return (
-    <ul className="fixed left-0 top-0 bottom-0 w-40 bg-slate-700 text-white min-h-screen">
+    <ul className="top-0 bottom-0 left-0 w-40 min-h-screen text-white bg-slate-700">
       <SidebarItem
         to="/api-metrics"
         label="API Metrics"

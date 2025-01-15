@@ -3,9 +3,9 @@ import Dashboard from "./dashboard";
 
 const Wrapper = () => {
   return (
-    <>
+    <div className="mt-4">
       <Outlet />
-    </>
+    </div>
   );
 };
 

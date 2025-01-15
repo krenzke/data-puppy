@@ -30,6 +30,10 @@
   </head>
 
   <body>
+    <header class="flex items-center gap-2 px-2 py-2 text-lg border-b bg-sky-50">
+      <p class="font-semibold">Project: </p>
+      <%= project_selector(Project.order(:name), @project) %>
+    </header>
     <div id="app"></div>
     <%= yield %>
   </body>

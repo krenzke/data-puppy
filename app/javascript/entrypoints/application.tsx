@@ -17,9 +17,11 @@ const App = observer(
       return (
         <BrowserRouter basename={window.currentProject.slug}>
           <StoreProvider value={store}>
-            <div className="min-h-screen pl-40">
-              <Sidebar />
-              <div className="px-4">
+            <div className="flex min-h-screen">
+              <div className="w-40">
+                <Sidebar />
+              </div>
+              <div className="flex-1 px-4">
                 <Routes>
                   {ApiMetricsRoutes}
                   {HostMetricsRoutes}
@@ -38,3 +40,15 @@ const App = observer(
 
 const root = createRoot(document.getElementById("app")!);
 root.render(<App />);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const projectSelector =
+    document.querySelector<HTMLSelectElement>("#project-selector");
+
+  projectSelector?.addEventListener("change", (e) => {
+    const selectedOption =
+      projectSelector.options[projectSelector.selectedIndex];
+
+    window.location.href = selectedOption.dataset.url!;
+  });
+});
